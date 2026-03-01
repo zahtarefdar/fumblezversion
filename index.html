@@ -293,7 +293,7 @@
   }
 
   // Countdown
-  let h = 23, m = 59, s = 59;
+  let h = 3, m = 59, s = 59;
   setInterval(() => {
     s--; if (s < 0) { s = 59; m--; } if (m < 0) { m = 59; h--; } if (h < 0) { h = m = s = 0; }
     document.getElementById('countdown').textContent =
