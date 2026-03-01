@@ -266,9 +266,9 @@
     <div class="line heading">YOU'RE ABOUT TO FUMBLE A BADDIE!</div>
     <div class="line system-heading">SYSTEM NOTICE:</div>
     <div class="stat-block">
-      MOVIE TIMER: <span class="red" id="countdown">&lt; 5H</span><br>
+      MOVIE TIMER: <span class="red" id="countdown">&lt; 2H</span><br>
       BADDIE STATUS: annoyed<br>
-      RESPONSE TO HORNY MSG: missing<br>
+      HORNY MESSAGING: missing<br>
       ATTEMPTS TO INITIATE CONVO:<br>
       not found
     </div>
@@ -293,7 +293,7 @@
   }
 
   // Countdown
-  let h = 3, m = 59, s = 59;
+  let h = 2, m = 59, s = 59;
   setInterval(() => {
     s--; if (s < 0) { s = 59; m--; } if (m < 0) { m = 59; h--; } if (h < 0) { h = m = s = 0; }
     document.getElementById('countdown').textContent =
