@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Link Preview -->
+<meta property="og:title" content="⚠️ WARNING: POTENTIAL FUMBLE INCOMING ⚠️">
+<meta property="og:description" content="You're about to fumble a baddie. Lock in or log out.">
+<meta property="og:type" content="website">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚠️ WARNING: POTENTIAL FUMBLE INCOMING ⚠️</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'VT323', monospace;
+    overflow-x: hidden;
+  }
+
+  .wrapper {
+    position: relative;
+    width: 100vmin;
+    max-width: 650px;
+  }
+
+  .wrapper > img.bg {
+    width: 100%;
+    display: block;
+    border: 6px solid rgba(0, 251, 255, 0.925);
+    box-shadow:
+      0 0 40px rgba(9, 159, 223, 0.957);
+  
+    
+  }
+
+  /* Ambient glow halo behind the card */
+  .wrapper::before {
+    content: '';
+    position: absolute;
+    top: -15px; left: -15px;
+    right: -15px; bottom: -15px;
+    border: 0px solid rgba(0, 221, 255, 0.728);
+    z-index: -1;
+    animation: ambientPulse 4s ease-in-out infinite;
+  }
+
+  @keyframes ambientPulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  /* ===== LOADING BAR - drains from right ===== */
+  .loading-bar {
+    position: absolute;
+    top: 8%;
+    left: 21%;
+    width: 18%;
+    height: 4.2%;
+    overflow: hidden;
+  }
+
+  .loading-bar img {
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+    display: block;
+    animation: drainBar 3s ease-in-out infinite;
+  }
+
+  @keyframes drainBar {
+    0% { clip-path: inset(0 0 0 0); }
+    50% { clip-path: inset(0 70% 0 0); }
+    100% { clip-path: inset(0 0 0 0); }
+  }
+
+  /* ===== OH NO! ===== */
+  .oh-no {
+    position: absolute;
+    top: 17%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 72%;
+    z-index: 5;
+    animation: ohNoEntrance 0.8s ease-out forwards, ohNoPulse 2s ease-in-out 0.8s infinite;
+  }
+
+  .oh-no img {
+    width: 100%;
+    display: block;
+    filter: drop-shadow(0 0 15px rgba(255, 100, 0, 0.6));
+  }
+
+  @keyframes ohNoEntrance {
+    0% { opacity: 0; transform: translateX(-50%) scale(3) rotate(-5deg); }
+    60% { opacity: 1; transform: translateX(-50%) scale(0.95) rotate(1deg); }
+    100% { opacity: 1; transform: translateX(-50%) scale(1) rotate(0deg); }
+  }
+
+  @keyframes ohNoPulse {
+    0%, 100% {
+      transform: translateX(-50%) scale(1);
+      filter: drop-shadow(0 0 15px rgba(255, 100, 0, 0.6));
+    }
+    50% {
+      transform: translateX(-50%) scale(1.03);
+      filter: drop-shadow(0 0 25px rgba(255, 100, 0, 0.9)) drop-shadow(0 0 50px rgba(255, 0, 0, 0.4));
+    }
+  }
+
+  /* ===== WHITE TEXT ===== */
+  .text-overlay {
+    position: absolute;
+    top: 39%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 55%;
+    z-index: 5;
+  }
+
+  .text-overlay .line {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: textReveal 0.5s ease-out forwards;
+  }
+
+  .text-overlay .line:nth-child(1) { animation-delay: 1.0s; }
+  .text-overlay .line:nth-child(2) { animation-delay: 1.3s; }
+  .text-overlay .line:nth-child(3) { animation-delay: 1.5s; }
+
+  @keyframes textReveal {
+    0% { opacity: 0; transform: translateY(12px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .heading {
+    font-family: 'VT323', monospace;
+    font-size: clamp(30px, 3.5vw, 40px);
+    color: #fff;
+    text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    margin-bottom: 3%;
+    line-height: .7;
+  }
+
+  .system-heading {
+    font-family: 'VT323', monospace;
+    font-size: clamp(16px, 3.5vw, 26px);
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    margin-bottom: 4%;
+  }
+
+  .stat-block {
+    font-family: 'VT323', monospace;
+    color: #fff;
+    font-size: clamp(16px, 3.5vw, 26px);
+    text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    line-height: 1;
+    opacity: 0;
+    animation: textReveal 0.5s ease-out 1.8s forwards;
+  }
+
+  .stat-block .red {
+    color: #ff3333;
+    text-shadow: 2px 2px 0 #000, 0 0 8px #ff0000;
+  }
+
+  /* ===== LOCK IN BUTTON ===== */
+  .btn-lockin {
+    position: absolute;
+    bottom: 7%;
+    left: 11%;
+    width: 42%;
+    height: 10.5%;
+    z-index: 10;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    border-radius: 6px;
+    transition: transform 0.15s;
+    overflow: hidden;
+  }
+
+  .btn-lockin img {
+    width: 95%;
+    height: 95%;
+    object-fit: fill;
+    display: block;
+    border-radius: 4px;
+  }
+
+  .btn-lockin::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 90%; height: 90%;
+    background: red;
+    border-radius: 4px;
+    animation: redFlash 1s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes redFlash {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.5; }
+  }
+
+  .btn-lockin:hover {
+    transform: scale(1.05);
+  }
+
+  /* ===== LOG OUT BUTTON ===== */
+  .btn-logout {
+    position: absolute;
+    bottom: 7%;
+    right: 6.5%;
+    width: 42%;
+    height: 10.5%;
+    z-index: 10;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    transition: transform 0.15s;
+  }
+
+  .btn-logout img {
+    width: 95%;
+    height: 95%;
+    object-fit: fill;
+    display: block;
+  }
+
+  .btn-logout:hover {
+    transform: scale(1.05);
+  }
+
+
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <img class="bg" src="BG.png" alt="Fumble Alert">
+
+  <div class="loading-bar">
+    <img src="loading.png" alt="Health Bar">
+  </div>
+
+  <div class="oh-no">
+    <img src="oh_no_.png" alt="oh no!">
+  </div>
+
+  <div class="text-overlay">
+    <div class="line heading">YOU'RE ABOUT TO FUMBLE A BADDIE!</div>
+    <div class="line system-heading">SYSTEM NOTICE:</div>
+    <div class="stat-block">
+      DATE TIMER: <span class="red" id="countdown">&lt; 24H</span><br>
+      LOCATION: missing<br>
+      TIME: missing<br>
+      ATTEMPTS TO RESCHEDULE:<br>
+      not found
+    </div>
+  </div>
+
+  <button class="btn-lockin" id="lock-in-btn" onclick="lockIn()">
+    <img src="lock_in.png" alt="Lock In">
+  </button>
+
+  <button class="btn-logout" id="logout-btn" onclick="tryLogout()">
+    <img src="log_out.png" alt="Log Out">
+  </button>
+</div>
+
+<script>
+  function lockIn() {
+    window.open('https://www.movie-matcher.com/16enw8KWu', '_blank');
+  }
+
+  function tryLogout() {
+    window.open('https://www.wikihow.com/Enjoy-Being-Single', '_blank');
+  }
+
+  // Countdown
+  let h = 23, m = 59, s = 59;
+  setInterval(() => {
+    s--; if (s < 0) { s = 59; m--; } if (m < 0) { m = 59; h--; } if (h < 0) { h = m = s = 0; }
+    document.getElementById('countdown').textContent =
+      `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+  }, 1000);
+</script>
+
+</body>
+</html>
+
